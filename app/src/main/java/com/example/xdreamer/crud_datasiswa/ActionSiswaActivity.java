@@ -35,7 +35,6 @@ public class ActionSiswaActivity extends AppCompatActivity {
     @BindView(R.id.button_delete)
     Button btnDelete;
 
-    private SlidrInterface slidrInterface;
     private SiswaModel siswaModel;
     private ArrayList<Image> imageArrayList = new ArrayList<>();
 
@@ -44,30 +43,22 @@ public class ActionSiswaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_siswa);
         ButterKnife.bind(this);
-        int primary = getResources().getColor(R.color.colorPrimary);
-        int secondary = getResources().getColor(R.color.colorPrimaryDark);
-        slidrInterface = Slidr.attach(this, primary, secondary);
 
-        //Berfungsi untuk mempackages image menjadi lebih kecil
         Bundle bundle = getIntent().getExtras();
         siswaModel = bundle.getParcelable(MainAdapter.EXTRA_SISWA);
 
-        //untuk mendapatkan data dari database dan ditaruh di form edit
         edtNama.setText(siswaModel.getNama());
         edtAlamat.setText(siswaModel.getAlamat());
 
-        //Bergungsi sama tapi untuk mendapatkan foto dari database
         Glide.with(this)
                 .load(siswaModel.getPathFoto())
                 .into(imageView);
 
-        Toast.makeText(this, "Slide untuk kembali", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.edit_value_profile)
     public void onImageViewClicked() {
 
-        //Berfungsi untuk mengambil gambar dari internal memory
         ImagePicker.with(this)
                 .setCameraOnly(false)
                 .setKeepScreenOn(true)
@@ -83,14 +74,14 @@ public class ActionSiswaActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //melakukan pengecekan apakah datanya tidak null
+
         if (data != null){
-            //jika ada data di parcel lalu dimasukkan ke arrayList
+
             imageArrayList = data.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
-            //lalu mengambil gambar dari yang dipilih berdasarkan urutan (position)
+
             siswaModel.setPathFoto(imageArrayList.get(0).getPath());
 
-            //Glide berfungsi Untuk meload gambar ke UI/XML
+
             Glide.with(this)
                     .load(imageArrayList.get(0).getPath())
                     .into(imageView);

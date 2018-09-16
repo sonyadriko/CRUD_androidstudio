@@ -16,10 +16,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by M Nur Fauzan W on 26-Aug-18.
- */
-
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {
 
     private List<SiswaModel> siswaModels;
@@ -42,8 +38,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     public void onBindViewHolder(final MainViewHolder holder, final int position) {
         final SiswaModel siswaModel = siswaModels.get(position);
 
-
-        //Untuk Load gambar dari memory internal / external
         Glide.with(holder.inputFoto.getContext())
                 .load(siswaModel.getPathFoto())
                 .into(holder.inputFoto);
